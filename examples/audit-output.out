@@ -1,0 +1,42 @@
+agent            mode      permission
+---------------  --------  ----------
+worker           primary   allow
+release-manager  primary   allow
+
+grants (omitted = none, except tools = all):
+  worker
+    tools              all
+    skills             all
+    subagents          none
+    commands           none
+    extensions         none
+    connectors         all
+    secrets            all
+    kortix_permissions all
+    apps               none
+  release-manager
+    tools              all
+    skills             none
+    subagents          none
+    commands           none
+    extensions         none
+    connectors         none
+    secrets            all
+    kortix_permissions all
+    apps               none
+
+findings:
+  [high  ] agents.worker: `secrets: all` — every secret the project declares is reachable by this agent.
+  [high  ] agents.worker: `kortix_permissions: all` — every grantable permission, including the ones that let an agent merge its own change request.
+  [high  ] agents.worker: `tools: all` with `permission: allow` — every tool runs without asking a person.
+  [high  ] agents.worker: People can start this agent (`mode: primary` or `all`) and it holds every permission: a person can reach any action through it.
+  [high  ] agents.release-manager: `secrets: all` — every secret the project declares is reachable by this agent.
+  [high  ] agents.release-manager: `kortix_permissions: all` — every grantable permission, including the ones that let an agent merge its own change request.
+  [high  ] agents.release-manager: `tools: all` with `permission: allow` — every tool runs without asking a person.
+  [high  ] agents.release-manager: People can start this agent (`mode: primary` or `all`) and it holds every permission: a person can reach any action through it.
+  [medium] agents.worker: `permission: allow` — no tool call ever stops for approval.
+  [medium] agents.release-manager: `permission: allow` — no tool call ever stops for approval.
+  [info  ] triggers: No `triggers`: nothing runs on a schedule, a webhook or an App event.
+  [info  ] approvals: No `approvals`, `policy` or `policies`: no connector call is held for a person by a project rule. Per-agent `permission: ask` is the only gate.
+
+high findings: 8
