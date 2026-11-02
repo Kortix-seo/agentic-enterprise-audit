@@ -1,0 +1,9 @@
+[project]
+name = "agentic-enterprise-audit"
+version = "0.1.0"
+description = "Read a Kortix project's kortix.yaml and report what each agent can reach."
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6,<7"]
+
+[project.scripts]
+agentic-enterprise-audit = "audit:main"
