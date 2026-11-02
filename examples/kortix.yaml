@@ -1,0 +1,34 @@
+# An example Kortix project manifest, for trying the audit.
+# The `worker` block is the starter's own agent, copied from
+# packages/starter/templates/base/kortix.yaml in the Kortix repository.
+# The `release-manager` block is the shape this audit is built to catch:
+# a second agent added in a hurry, with every grant set to `all`.
+project:
+  name: "example-company"
+  description: An example Kortix project.
+
+default_agent: worker
+
+skills: {}
+
+agents:
+  worker:
+    description: "General-purpose worker: coding, research, writing, ops and data work, done end to end in its own sandbox."
+    mode: primary
+    permission: allow
+    prompt_file: agents/worker.md
+    tools: all
+    skills: all
+    connectors: all
+    secrets: all
+    kortix_permissions: all
+    workspace: { project_repository: true }
+
+  release-manager:
+    description: "Cuts releases and merges change requests."
+    mode: primary
+    permission: allow
+    prompt_file: agents/release-manager.md
+    tools: all
+    secrets: all
+    kortix_permissions: all
