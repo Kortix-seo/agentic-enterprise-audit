@@ -1,0 +1,48 @@
+# The same project, tightened. Each agent gets the grants its job needs and
+# nothing else, and the tools that change something ask a person first.
+# Run `python audit.py examples/kortix-tightened.yaml` to see it come back clean.
+project:
+  name: "example-company"
+  description: An example Kortix project.
+
+default_agent: worker
+
+skills:
+  release-notes: skills/release-notes
+
+agents:
+  worker:
+    description: "General-purpose worker: coding, research, writing, ops and data work, done end to end in its own sandbox."
+    mode: primary
+    permission:
+      bash: ask
+      edit: ask
+      webfetch: allow
+    prompt_file: agents/worker.md
+    tools: all
+    skills: all
+    connectors: [github, slack]
+    secrets: none
+    kortix_permissions: [project.read, project.write]
+
+  release-manager:
+    description: "Cuts releases and merges change requests."
+    mode: subagent
+    permission:
+      bash: ask
+      edit: ask
+    prompt_file: agents/release-manager.md
+    tools: [bash, edit, read, grep]
+    skills: [release-notes]
+    connectors: [github]
+    secrets: none
+    kortix_permissions: [project.read, project.gitops.push]
+
+approvals:
+  timeout: 24h
+
+triggers:
+  weekly-release:
+    schedule: "0 9 * * 1"
+    agent: release-manager
+    prompt: "Cut this week's release."
