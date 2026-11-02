@@ -1,0 +1,30 @@
+agent            mode      permission
+---------------  --------  ----------
+worker           primary   ask: bash, edit
+release-manager  subagent  ask: bash, edit
+
+grants (omitted = none, except tools = all):
+  worker
+    tools              all
+    skills             all
+    subagents          none
+    commands           none
+    extensions         none
+    connectors         github, slack
+    secrets            none
+    kortix_permissions project.read, project.write
+    apps               none
+  release-manager
+    tools              bash, edit, read, grep
+    skills             release-notes
+    subagents          none
+    commands           none
+    extensions         none
+    connectors         github
+    secrets            none
+    kortix_permissions project.read, project.gitops.push
+    apps               none
+
+findings: none
+
+high findings: 0
