@@ -86,7 +86,7 @@ high findings: 8
 
 - The schema: <https://kortix.com/schema/kortix.schema.json> (`kortix schema` prints the same document).
 - The reference: <https://kortix.com/docs/developers>.
-- The starter manifest this example copies: `packages/starter/templates/base/kortix.yaml` in [the Kortix repository](https://github.com/kortix-ai/suna).
+- The starter manifest this example copies: `packages/starter/templates/base/kortix.yaml` in [the Kortix repository](https://github.com/kortix-ai/CompanyOS).
 
 ## Reading next
 
